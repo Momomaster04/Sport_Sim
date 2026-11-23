@@ -105,4 +105,5 @@ export const football: SportDefinition = {
 };
 
 export { FootballMatch } from './engine';
-export { footballCompetitors, footballLeague } from './league';
+export { bundledLeagues, footballCompetitors, footballLeague } from './league';
+export { bestAt, effectiveRatings, generateSquad, startingEleven, withSquads } from './squad';

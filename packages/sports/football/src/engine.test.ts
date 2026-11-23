@@ -199,11 +199,11 @@ describe('football season', () => {
 
   it('usually crowns one of the better rated sides', () => {
     const elite = new Set([
-      'ashford-united',
-      'kingsmead-city',
-      'westmere-united',
-      'stonehurst-rovers',
-      'larkfield-albion',
+      'liverpool',
+      'manchester-city',
+      'arsenal',
+      'chelsea',
+      'newcastle-united',
     ]);
     let eliteTitles = 0;
 

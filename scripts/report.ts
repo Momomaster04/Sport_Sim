@@ -7,7 +7,15 @@
  *
  *   npm run report -- --seed=2026 --sport=football
  */
-import { createSeason, playSeason, standings, totalRounds, type SportDefinition } from '@sportsim/core';
+import {
+  createSeason,
+  leaderboard,
+  playerIndex,
+  playSeason,
+  standings,
+  totalRounds,
+  type SportDefinition,
+} from '@sportsim/core';
 import { football } from '@sportsim/football';
 
 const SPORTS: Record<string, SportDefinition> = { football };
@@ -39,7 +47,7 @@ const nameOf = (id: string) => season.competitors.find((team) => team.id === id)
 console.log(`\n${season.leagueName} — ${sport.name}`);
 console.log(`seed "${seed}" · ${totalRounds(season)} rounds · ${season.results.length} fixtures · simulated in ${elapsed}ms\n`);
 
-const header = [pad('#', 2), pad('Club', 20, true), 'Pl', ...sport.standingsColumns.map((column) => pad(column.label, 4)), pad('Pts', 4)];
+const header = [pad('#', 2), pad('Club', 24, true), 'Pl', ...sport.standingsColumns.map((column) => pad(column.label, 4)), pad('Pts', 4)];
 console.log(header.join(' '));
 console.log('-'.repeat(header.join(' ').length));
 
@@ -47,7 +55,7 @@ for (const row of standings(sport, season)) {
   console.log(
     [
       pad(row.rank, 2),
-      pad(nameOf(row.competitorId), 20, true),
+      pad(nameOf(row.competitorId), 24, true),
       pad(row.played, 2),
       ...sport.standingsColumns.map((column) => pad(row.columns[column.key] ?? 0, 4)),
       pad(row.points, 4),
@@ -71,4 +79,26 @@ if (biggest) {
   console.log(
     `Biggest win: ${nameOf(home?.competitorId ?? '')} ${home?.score} - ${away?.score} ${nameOf(away?.competitorId ?? '')} (round ${biggest.round})\n`,
   );
+}
+
+const scorers = leaderboard(season.results, 'goals', 10);
+if (scorers.length > 0) {
+  const squads = playerIndex(season.competitors);
+  console.log('Top scorers');
+  console.log('-'.repeat(46));
+
+  for (const [rank, scorer] of scorers.entries()) {
+    const player = squads.get(scorer.playerId);
+    const club = season.competitors.find((team) => team.id === scorer.competitorId);
+    console.log(
+      [
+        pad(rank + 1, 2),
+        pad(player?.name ?? scorer.playerId, 22, true),
+        pad(club?.short ?? '', 4, true),
+        pad(scorer.stats.goals ?? 0, 3),
+        `(${scorer.stats.assists ?? 0} ast)`,
+      ].join(' '),
+    );
+  }
+  console.log('');
 }

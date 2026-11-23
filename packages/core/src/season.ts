@@ -11,6 +11,8 @@ export interface Season {
   sportId: SportId;
   leagueId: string;
   leagueName: string;
+  /** The season the dataset represents, e.g. "2025/26". */
+  leagueSeason?: string;
   /** Seeds every fixture in this season. Same seed, same season, every time. */
   seed: string;
   competitors: Competitor[];
@@ -36,6 +38,7 @@ export function createSeason(sport: SportDefinition, options: CreateSeasonOption
     sportId: sport.id,
     leagueId: league.id,
     leagueName: league.name,
+    ...(league.season ? { leagueSeason: league.season } : {}),
     seed,
     competitors: league.competitors,
     fixtures: buildSchedule(league, sport.format, seed),

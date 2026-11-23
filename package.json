@@ -1,0 +1,30 @@
+{
+  "name": "sport-sim",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Multi-sport match and season simulator",
+  "author": "Mohanad Mustafa <mohanadhtsm04@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/core",
+    "packages/sports/*",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @sportsim/web",
+    "build": "npm run build --workspaces --if-present",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "report": "tsx scripts/report.ts",
+    "typecheck": "tsc --build --verbose"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
+  }
+}

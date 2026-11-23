@@ -17,7 +17,7 @@ export function Card({ children, className }: { children: ReactNode; className?:
   );
 }
 
-export function CardHeader({ title, subtitle, action }: { title: string; subtitle?: string; action?: ReactNode }) {
+export function CardHeader({ title, subtitle, action }: { title: string; subtitle?: string | undefined; action?: ReactNode | undefined }) {
   return (
     <header className="flex flex-wrap items-end justify-between gap-3 border-b border-pitch-700/50 px-5 py-4">
       <div>

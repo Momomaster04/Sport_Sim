@@ -1,6 +1,9 @@
 import type { Season, SportId } from '@sportsim/core';
 
-const VERSION = 1;
+// Bumped whenever the bundled datasets change shape, so a saved season from an
+// older club list is discarded rather than restored against clubs that no
+// longer exist.
+const VERSION = 2;
 const KEY_PREFIX = 'sportsim';
 
 interface Envelope {

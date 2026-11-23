@@ -10,9 +10,9 @@ same season — results are reproducible, shareable and testable.
 
 | Sport | Status |
 | --- | --- |
-| Football (soccer) | Engine complete |
+| Football | Engine complete |
 | Basketball | Planned |
-| American football | Planned |
+| American Football | Planned |
 | Formula 1 | Planned |
 
 ## Modes
@@ -33,7 +33,7 @@ behind a single interface.
 
 ```
 packages/core            scheduling, season state, standings, seeded RNG
-packages/sports/soccer   football match engine and league data
+packages/sports/football  football match engine and league data
 apps/web                 React front end
 scripts/report.ts        simulate a season and print the table to a terminal
 ```

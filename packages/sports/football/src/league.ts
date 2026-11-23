@@ -34,7 +34,7 @@ function slug(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
-export function soccerCompetitors(): Competitor[] {
+export function footballCompetitors(): Competitor[] {
   return CLUBS.map(([name, short, attack, midfield, defence, color]) => ({
     id: slug(name),
     name,
@@ -44,11 +44,11 @@ export function soccerCompetitors(): Competitor[] {
   }));
 }
 
-export function soccerLeague(): LeagueTemplate {
+export function footballLeague(): LeagueTemplate {
   return {
     id: 'premier-division',
     name: 'Premier Division',
-    competitors: soccerCompetitors(),
+    competitors: footballCompetitors(),
     doubleRoundRobin: true,
   };
 }

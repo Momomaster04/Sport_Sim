@@ -10,8 +10,8 @@ import {
   type Fixture,
 } from '@sportsim/core';
 import { describe, expect, it } from 'vitest';
-import { SoccerMatch } from './engine';
-import { soccer } from './index';
+import { FootballMatch } from './engine';
+import { football } from './index';
 
 const fixture: Fixture = { id: 'test-match', round: 1, competitorIds: ['home', 'away'] };
 
@@ -22,10 +22,10 @@ function team(id: string, attack: number, midfield: number, defence: number): Co
 const even: Competitor[] = [team('home', 75, 75, 75), team('away', 75, 75, 75)];
 
 function playMatch(seed: string, competitors = even) {
-  return soccer.simulate(fixture, competitors, new Rng(seed));
+  return football.simulate(fixture, competitors, new Rng(seed));
 }
 
-describe('SoccerMatch', () => {
+describe('FootballMatch', () => {
   it('is deterministic for a given seed', () => {
     expect(playMatch('match-42')).toEqual(playMatch('match-42'));
   });
@@ -45,9 +45,9 @@ describe('SoccerMatch', () => {
   it('produces a result the live feed agrees with', () => {
     // This is the contract that keeps the two modes honest: stepping a match
     // minute by minute must land on exactly what the fast sim would produce.
-    const fast = soccer.simulate(fixture, even, new Rng('consistency'));
+    const fast = football.simulate(fixture, even, new Rng('consistency'));
 
-    const live = soccer.createLive(fixture, even, new Rng('consistency'));
+    const live = football.createLive(fixture, even, new Rng('consistency'));
     const collected = [];
     while (!live.done) collected.push(...live.step());
 
@@ -62,7 +62,7 @@ describe('SoccerMatch', () => {
   });
 
   it('runs for ninety minutes plus added time', () => {
-    const match = new SoccerMatch(fixture, even, new Rng('clock'));
+    const match = new FootballMatch(fixture, even, new Rng('clock'));
     expect(match.duration).toBeGreaterThanOrEqual(92);
     expect(match.duration).toBeLessThanOrEqual(96);
 
@@ -103,7 +103,7 @@ describe('SoccerMatch', () => {
   });
 });
 
-describe('soccer calibration', () => {
+describe('football calibration', () => {
   const SAMPLE = 2000;
 
   it('lands total goals per game in a realistic band', () => {
@@ -161,9 +161,9 @@ describe('soccer calibration', () => {
   });
 });
 
-describe('soccer season', () => {
+describe('football season', () => {
   it('plays a full twenty team season', () => {
-    const season = playSeason(soccer, createSeason(soccer, { seed: 'season-test' }));
+    const season = playSeason(football, createSeason(football, { seed: 'season-test' }));
 
     expect(totalRounds(season)).toBe(38);
     expect(season.fixtures).toHaveLength(380);
@@ -172,8 +172,8 @@ describe('soccer season', () => {
   });
 
   it('builds a table that adds up', () => {
-    const season = playSeason(soccer, createSeason(soccer, { seed: 'table-test' }));
-    const table = standings(soccer, season);
+    const season = playSeason(football, createSeason(football, { seed: 'table-test' }));
+    const table = standings(football, season);
 
     expect(table).toHaveLength(20);
     for (const row of table) expect(row.played).toBe(38);
@@ -192,9 +192,9 @@ describe('soccer season', () => {
   });
 
   it('replays a season identically from the same seed', () => {
-    const first = playSeason(soccer, createSeason(soccer, { seed: 'repeat' }));
-    const second = playSeason(soccer, createSeason(soccer, { seed: 'repeat' }));
-    expect(standings(soccer, first)).toEqual(standings(soccer, second));
+    const first = playSeason(football, createSeason(football, { seed: 'repeat' }));
+    const second = playSeason(football, createSeason(football, { seed: 'repeat' }));
+    expect(standings(football, first)).toEqual(standings(football, second));
   });
 
   it('usually crowns one of the better rated sides', () => {
@@ -208,8 +208,8 @@ describe('soccer season', () => {
     let eliteTitles = 0;
 
     for (let i = 0; i < 20; i += 1) {
-      const season = playSeason(soccer, createSeason(soccer, { seed: `title-${i}` }));
-      const champion = standings(soccer, season)[0];
+      const season = playSeason(football, createSeason(football, { seed: `title-${i}` }));
+      const champion = standings(football, season)[0];
       if (champion && elite.has(champion.competitorId)) eliteTitles += 1;
     }
 

@@ -1,9 +1,9 @@
 /** The sports this project simulates. */
-export type SportId = 'soccer' | 'nba' | 'nfl' | 'f1';
+export type SportId = 'football' | 'nba' | 'american-football' | 'f1';
 
 /**
  * Two shapes of competition:
- *  - 'pair'  two competitors meet in one fixture (soccer, NBA, NFL)
+ *  - 'pair'  two competitors meet in one fixture (football, NBA, NFL)
  *  - 'field' the whole field competes in one fixture (F1)
  */
 export type FixtureFormat = 'pair' | 'field';

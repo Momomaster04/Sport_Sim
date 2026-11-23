@@ -42,14 +42,14 @@ function chanceQuality(attack: number, defence: number): number {
 }
 
 /**
- * A soccer match played out one minute at a time.
+ * A football match played out one minute at a time.
  *
  * The same object backs both modes: the live feed calls step() on a timer,
  * while a season sim runs it to completion immediately. Because both paths
  * consume the same generator in the same order, a match watched live always
  * ends exactly as the fast simulation would have ended it.
  */
-export class SoccerMatch implements LiveSim {
+export class FootballMatch implements LiveSim {
   readonly duration: number;
 
   private minute = 0;

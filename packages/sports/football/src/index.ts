@@ -9,8 +9,8 @@ import {
   type SportDefinition,
   type StandingsRow,
 } from '@sportsim/core';
-import { SoccerMatch } from './engine';
-import { soccerLeague } from './league';
+import { FootballMatch } from './engine';
+import { footballLeague } from './league';
 
 const TABLE_COLUMNS = ['w', 'd', 'l', 'gf', 'ga', 'gd'] as const;
 
@@ -18,7 +18,7 @@ const POINTS_FOR_WIN = 3;
 const POINTS_FOR_DRAW = 1;
 
 /** Build the league table from every result played so far. */
-function soccerStandings(results: FixtureResult[], competitors: Competitor[]): StandingsRow[] {
+function footballStandings(results: FixtureResult[], competitors: Competitor[]): StandingsRow[] {
   const rows = new Map<string, StandingsRow>(
     competitors.map((competitor) => [competitor.id, emptyRow(competitor.id, TABLE_COLUMNS)]),
   );
@@ -59,8 +59,8 @@ function soccerStandings(results: FixtureResult[], competitors: Competitor[]): S
   return rankRows([...rows.values()], [{ key: 'points' }, { key: 'gd' }, { key: 'gf' }]);
 }
 
-export const soccer: SportDefinition = {
-  id: 'soccer',
+export const football: SportDefinition = {
+  id: 'football',
   name: 'Football',
   format: 'pair',
   clockUnit: 'min',
@@ -93,16 +93,16 @@ export const soccer: SportDefinition = {
   ],
 
   simulate(fixture: Fixture, competitors: Competitor[], rng: Rng): FixtureResult {
-    return runToCompletion(new SoccerMatch(fixture, competitors, rng));
+    return runToCompletion(new FootballMatch(fixture, competitors, rng));
   },
 
   createLive(fixture: Fixture, competitors: Competitor[], rng: Rng) {
-    return new SoccerMatch(fixture, competitors, rng);
+    return new FootballMatch(fixture, competitors, rng);
   },
 
-  standings: soccerStandings,
-  defaultLeague: soccerLeague,
+  standings: footballStandings,
+  defaultLeague: footballLeague,
 };
 
-export { SoccerMatch } from './engine';
-export { soccerCompetitors, soccerLeague } from './league';
+export { FootballMatch } from './engine';
+export { footballCompetitors, footballLeague } from './league';

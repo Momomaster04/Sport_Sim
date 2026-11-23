@@ -17,7 +17,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "report": "tsx scripts/report.ts",
-    "typecheck": "tsc --build --verbose"
+    "typecheck": "tsc -p packages/core && tsc -p packages/sports/football && tsc -p apps/web"
   },
   "engines": {
     "node": ">=22"

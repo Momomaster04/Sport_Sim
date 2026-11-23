@@ -1,0 +1,49 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-pitch-950: #06100c;
+  --color-pitch-900: #0a1a13;
+  --color-pitch-800: #11271d;
+  --color-pitch-700: #1b3b2b;
+  --color-pitch-600: #26543c;
+  --color-accent: #34d97a;
+  --color-accent-dim: #1f9c56;
+  --font-sans: 'Inter var', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgb(52 217 122 / 0.12), transparent),
+    var(--color-pitch-950);
+  color: #e6f0ea;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular figures keep score and stat columns from jittering as they update. */
+.nums {
+  font-variant-numeric: tabular-nums;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-pitch-700);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-pitch-600);
+}

@@ -5,12 +5,12 @@
  * whether the table, the scorelines and the spread of points look like the
  * sport they are meant to be modelling.
  *
- *   npm run report -- --seed=2026 --sport=soccer
+ *   npm run report -- --seed=2026 --sport=football
  */
 import { createSeason, playSeason, standings, totalRounds, type SportDefinition } from '@sportsim/core';
-import { soccer } from '@sportsim/soccer';
+import { football } from '@sportsim/football';
 
-const SPORTS: Record<string, SportDefinition> = { soccer };
+const SPORTS: Record<string, SportDefinition> = { football };
 
 function arg(name: string, fallback: string): string {
   const match = process.argv.find((value) => value.startsWith(`--${name}=`));
@@ -22,7 +22,7 @@ function pad(value: string | number, width: number, left = false): string {
   return left ? text.padEnd(width) : text.padStart(width);
 }
 
-const sportId = arg('sport', 'soccer');
+const sportId = arg('sport', 'football');
 const sport = SPORTS[sportId];
 if (!sport) {
   console.error(`Unknown sport "${sportId}". Available: ${Object.keys(SPORTS).join(', ')}`);
